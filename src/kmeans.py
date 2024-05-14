@@ -1,9 +1,7 @@
-import sys
 import os
 import path
 import configparser
 
-import numpy
 from pyspark.ml.clustering import KMeans
 from pyspark.ml.evaluation import ClusteringEvaluator
 from pyspark.sql import SparkSession
