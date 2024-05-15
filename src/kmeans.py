@@ -38,8 +38,6 @@ def main():
     spark = SparkSession.builder \
         .appName(config['spark']['app_name']) \
         .master(config['spark']['deploy_mode']) \
-        .config("spark.driver.cores", config['spark']['driver_cores']) \
-        .config("spark.executor.cores", config['spark']['executor_cores']) \
         .config("spark.driver.memory", config['spark']['driver_memory']) \
         .config("spark.executor.memory", config['spark']['executor_memory']) \
         .config("spark.driver.extraClassPath", config['spark']['mysql_connector']) \
