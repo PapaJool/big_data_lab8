@@ -1,13 +1,17 @@
 from pyspark.ml.feature import VectorAssembler, StandardScaler
 
+import src.db
+
 
 class Preprocess:
-    def load_dataset(self, path_to_data, spark):
-        dataset = spark.read.csv(path_to_data, header=True, inferSchema=True)
+    def load_dataset(self, db: src.db.Database):
+        dataset = db.read_table("OpenFoodFacts")
+        #dataset = spark.read.csv(path_to_data, header=True, inferSchema=True)
 
         vector_assembler = VectorAssembler(
             inputCols=dataset.columns,
             outputCol='features',
+            handleInvalid='skip'
         )
 
         assembled_data = vector_assembler.transform(dataset)
