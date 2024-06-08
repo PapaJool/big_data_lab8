@@ -1,0 +1,9 @@
+version: "3.8"
+services:
+  mysql:
+    ports:
+      - "3306:3306"
+    image: "arm64v8/mysql:8-oracle"
+    environment:
+      - MYSQL_DATABASE=lab6_bd
+      - MYSQL_ROOT_PASSWORD=0000
