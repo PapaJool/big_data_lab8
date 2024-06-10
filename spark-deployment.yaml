@@ -12,6 +12,10 @@ spec:
       labels:
         app: spark
     spec:
+      initContainers:
+      - name: wait-for-mysql
+        image: busybox
+        command: ['sh', '-c', 'until nc -z -v -w30 mysql 3306; do echo "Waiting for MySQL"; sleep 5; done']
       containers:
       - name: spark
         image: big_data_lab6-spark:latest

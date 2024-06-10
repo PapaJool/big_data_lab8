@@ -22,7 +22,7 @@ object DataMart {
     val scaled = scaleAssembledDataset(assemble)
     scaled.write.mode(SaveMode.Overwrite).parquet("/shared/scaled_data.parquet")
     while (true) {
-      Thread.sleep(1000) // Пауза на 1 секунду
+      Thread.sleep(1000)
     }
 
   }

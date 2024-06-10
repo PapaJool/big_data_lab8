@@ -2,6 +2,7 @@ import os
 import path
 import configparser
 import pandas as pd
+import time
 
 from pyspark.ml.clustering import KMeans
 from pyspark.ml.evaluation import ClusteringEvaluator
@@ -80,12 +81,16 @@ def main():
     db.create_table("OpenFoodFacts", columns)
 
     db.insert_data('OpenFoodFacts', df)
+    while(True):
+        if os.path.isdir("/shared/scaled_data.parquet"):
+            break
+        time.sleep(10)
     scaled_data = spark.read.parquet("/shared/scaled_data.parquet")
     print(scaled_data)
     kmeans = KMeansModel()
     kmeans.clustering(scaled_data)
     spark.stop()
-
-
+    while True:
+        time.sleep(60)
 if __name__ == '__main__':
     main()
