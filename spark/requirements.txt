@@ -1,0 +1,8 @@
+path
+configparser
+pyspark
+numpy
+mysql-connector-python
+pandas
+loguru
+requests

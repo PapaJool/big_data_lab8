@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: datamart
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: datamart
+  template:
+    metadata:
+      labels:
+        app: datamart
+    spec:
+      containers:
+      - name: datamart
+        image: big_data_lab6-datamart:latest
+        imagePullPolicy: Never
+        ports:
+        - containerPort: 9000
+        volumeMounts:
+        - name: shared-data
+          mountPath: /shared
+      volumes:
+        - name: shared-data
+          persistentVolumeClaim:
+            claimName: shared-pvc
+

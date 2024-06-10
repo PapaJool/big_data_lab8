@@ -1,9 +1,44 @@
 version: "3.8"
 services:
   mysql:
+    hostname: "mysql"
     ports:
       - "3306:3306"
     image: "arm64v8/mysql:8-oracle"
     environment:
       - MYSQL_DATABASE=lab6_bd
       - MYSQL_ROOT_PASSWORD=0000
+    networks:
+      - my_network
+
+  datamart:
+    container_name: datamart
+    build:
+      context: datamart/.
+      dockerfile: Dockerfile
+    ports:
+      - '9000:9000'
+    volumes:
+      - shared_data:/shared
+    networks:
+      - my_network
+
+  spark:
+    container_name: spark
+    build:
+      context: spark/.
+      dockerfile: Dockerfile
+    depends_on:
+      - mysql
+      - datamart
+    volumes:
+      - shared_data:/shared
+    networks:
+      - my_network
+
+networks:
+  my_network:
+    driver: bridge
+
+volumes:
+  shared_data:

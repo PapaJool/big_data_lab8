@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: spark
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: spark
+  template:
+    metadata:
+      labels:
+        app: spark
+    spec:
+      containers:
+      - name: spark
+        image: big_data_lab6-spark:latest
+        imagePullPolicy: Never
+        ports:
+        - containerPort: 25565
+        volumeMounts:
+        - name: shared-data
+          mountPath: /shared
+      volumes:
+      - name: shared-data
+        persistentVolumeClaim:
+          claimName: shared-pvc

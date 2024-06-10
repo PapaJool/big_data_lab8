@@ -1,6 +1,6 @@
 from pyspark.ml.feature import VectorAssembler, StandardScaler
 
-import src.db
+from db import Database
 
 from logger import Logger
 
@@ -9,7 +9,7 @@ SHOW_LOG = True
 class Preprocess:
     logger = Logger(SHOW_LOG)
     log = logger.get_logger(__name__)
-    def load_dataset(self, db: src.db.Database):
+    def load_dataset(self, db: Database):
         dataset = db.read_table("OpenFoodFacts")
         #dataset = spark.read.csv(path_to_data, header=True, inferSchema=True)
 
